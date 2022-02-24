@@ -46,12 +46,12 @@ if [[ $sync == "y" ]]
 then
     read -p "Enter directory to sync to: " direc
 
-    if [[ -d "$HOME/Downloads/4chan-stuff/$direc" ]]
+    if [[ -d "$HOME/Downloads/$direc" ]]
     then
         echo "$direc exists"
         echo "Syncing..."
-        cd $HOME/Downloads/4chan-stuff/$direc
-        var1="$HOME/Downloads/4chan-stuff/$direc/threadid.txt"
+        cd $HOME/Downloads/$direc
+        var1="$HOME/Downloads/$direc/threadid.txt"
         var2=$(cat "$var1")
         python3 -c "$PYCMD" --name $var2
 
@@ -61,19 +61,19 @@ then
 else
     read -p "Enter thread url: " thread_url
     read -p "Enter directory name: " direc
-    echo "Creating a new directory in $HOME/Downloads/4chan-stuff..."
-    echo "Files will be saved in $HOME/Downloads/4chan-stuff/$direc"
-    cd $HOME/Downloads/4chan-stuff/
+    echo "Creating a new directory in $HOME/Downloads/..."
+    echo "Files will be saved in $HOME/Downloads/$direc"
+    cd $HOME/Downloads
     mkdir $direc
     cd $direc
     python3 -c "$PYCMD" --name $thread_url
     touch threadid.txt
-    threadid="$HOME/Downloads/4chan-stuff/$direc/threadid.txt"
+    threadid="$HOME/Downloads/$direc/threadid.txt"
     echo "$thread_url" > "$threadid"
 fi
 
 
-if [[ ! -f $HOME/Downloads/4chan-stuff/$direc/links.txt ]]
+if [[ ! -f $HOME/Downloads/$direc/links.txt ]]
 then
     echo "ERROR: links.txt does not exist."
 else
