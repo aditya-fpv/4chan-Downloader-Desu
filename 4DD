@@ -1,10 +1,6 @@
 #!/bin/sh
-read -p "Enter thread url: " thread_url
-read -p "Enter folder name: " direc
-echo "Files will be saved in $HOME/Downloads/$direc"
-cd $HOME/Downloads/
-mkdir $direc
-cd $direc
+
+echo "Welcome"
 
 PYCMD=$(cat <<EOF
 from bs4 import BeautifulSoup
@@ -43,12 +39,44 @@ for k in links2:
 EOF
 )
 
-python3 -c "$PYCMD" --name $thread_url
 
-if [[ ! -f $HOME/Downloads/$direc/links.txt ]]
+read -p "Do you want to sync to a thread?(default "No"): <[y]es> " sync
+
+if [[ $sync == "y" ]]
+then
+    read -p "Enter directory to sync to: " direc
+
+    if [[ -d "$HOME/Downloads/4chan-stuff/$direc" ]]
+    then
+        echo "$direc exists"
+        echo "Syncing..."
+        cd $HOME/Downloads/4chan-stuff/$direc
+        var1="$HOME/Downloads/4chan-stuff/$direc/threadid.txt"
+        var2=$(cat "$var1")
+        python3 -c "$PYCMD" --name $var2
+
+    else
+        echo "$direc doesn't exist"
+    fi
+else
+    read -p "Enter thread url: " thread_url
+    read -p "Enter directory name: " direc
+    echo "Creating a new directory in $HOME/Downloads/4chan-stuff..."
+    echo "Files will be saved in $HOME/Downloads/4chan-stuff/$direc"
+    cd $HOME/Downloads/4chan-stuff/
+    mkdir $direc
+    cd $direc
+    python3 -c "$PYCMD" --name $thread_url
+    touch threadid.txt
+    threadid="$HOME/Downloads/4chan-stuff/$direc/threadid.txt"
+    echo "$thread_url" > "$threadid"
+fi
+
+
+if [[ ! -f $HOME/Downloads/4chan-stuff/$direc/links.txt ]]
 then
     echo "ERROR: links.txt does not exist."
 else
-    wget -i links.txt
+    wget -nc -i links.txt
     rm links.txt
 fi
