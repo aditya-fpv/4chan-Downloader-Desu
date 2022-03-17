@@ -17,3 +17,5 @@ This script needs following python libraries to function:
 [**beautifulsoup4**](https://pypi.org/project/beautifulsoup4/) - install with `$ sudo pip install beautifulsoup4`
 
 [**argparse**](https://pypi.org/project/argparse/) - install with `$ sudo pip install argparse`
+
+[**lxml**](https://pypi.org/project/lxml/) - install with `$sudo pip install lxml`
