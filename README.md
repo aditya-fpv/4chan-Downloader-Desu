@@ -18,4 +18,4 @@ This script needs following python libraries to function:
 
 [**argparse**](https://pypi.org/project/argparse/) - install with `$ sudo pip install argparse`
 
-[**lxml**](https://pypi.org/project/lxml/) - install with `$sudo pip install lxml`
+[**lxml**](https://pypi.org/project/lxml/) - install with `$ sudo pip install lxml`
