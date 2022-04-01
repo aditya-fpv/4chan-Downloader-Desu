@@ -10,5 +10,6 @@ Add `4DD_re` in /usr/local/bin(which should be in $PATH and make it executable u
 ## Syncing
 
 ~~Enter "y" and input directory name if you want that directory to sync to its thread. All the newly added content on that thread will be downloaded.~~
+
 Syncing function is under maintainance~~
 
