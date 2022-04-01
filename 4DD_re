@@ -23,6 +23,9 @@ EOF
 )
 
 
+DEBUG=false
+if ${DEBUG}; then
+
 read -p "Do you want to sync to a thread?(default "No"): <[y]es> " sync
 
 if [[ $sync == "y" ]]
@@ -56,6 +59,22 @@ else
     threadid="$HOME/Downloads/$direc/threadid.txt"
     echo "$thread_url" > "$threadid"
 fi
+
+fi
+
+read -p "Enter thread url: " thread_url
+read -p "Enter directory name: " direc
+echo "Creating a new directory in $HOME/Downloads/..."
+echo "Files will be saved in $HOME/Downloads/$direc"
+cd $HOME/Downloads/
+mkdir $direc
+cd $direc
+wget $thread_url -O 4chan.html
+touch links.txt
+python3 -c "$PYCMD"
+touch threadid.txt
+threadid="$HOME/Downloads/$direc/threadid.txt"
+echo "$thread_url" > "$threadid"
 
 
 if [[ ! -f $HOME/Downloads/$direc/links.txt ]]
