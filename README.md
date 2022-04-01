@@ -4,8 +4,8 @@ A simple script to scrape images and webms from 4chan.org threads. Just paste th
 
 You will be prompted to input thread url and create a folder in $HOME/Downloads, which is the default save path.
 
-The script can be called like this: `$ bash /path/to/4DD`.
-Add `4DD_re` in /usr/local/bin(which should be in $PATH and make it executable using chmod. Type `echo $PATH` in terminal to check if it is) and make the script executable systemwide without specifying it's path everytime. More info on that [here](https://www.maketecheasier.com/make-scripts-executable-everywhere-linux/).
+First make the script executable with `$chmod +x 4DD_re` and then it can be called like this: `$ ./path/to/4DD_re`.
+Add `4DD_re` in your system $PATH and make it executable systemwide without specifying it's path everytime. More info on that [here](https://www.maketecheasier.com/make-scripts-executable-everywhere-linux/).
 
 ## Syncing
 
