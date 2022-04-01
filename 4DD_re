@@ -1,0 +1,68 @@
+#!/bin/sh
+
+echo "Welcome"
+
+PYCMD=$(cat <<EOF
+import re
+
+with open('4chan.html') as f:
+        for line in f:
+                match = re.findall('i\.4cdn\.org/\w{2,3}/\d{13}\.\w{3,4}', line)
+
+file1 = open('links.txt','r+')
+
+seggs = "no"
+
+for k in match:
+    if k != seggs:
+        file1.write(k+"\n")
+        seggs = k
+file1.close()
+
+EOF
+)
+
+
+read -p "Do you want to sync to a thread?(default "No"): <[y]es> " sync
+
+if [[ $sync == "y" ]]
+then
+    read -p "Enter directory to sync to: " direc
+
+    if [[ -d "$HOME/Pictures/4chan-stuff/$direc" ]]
+    then
+        echo "$direc exists"
+        echo "Syncing..."
+        cd $HOME/Pictures/4chan-stuff/$direc
+        var1="$HOME/Pictures/4chan-stuff/$direc/threadid.txt"
+        var2=$(cat "$var1")
+        python3 -c "$PYCMD" --name $var2
+
+    else
+        echo "$direc doesn't exist"
+    fi
+else
+    read -p "Enter thread url: " thread_url
+    read -p "Enter directory name: " direc
+    echo "Creating a new directory in $HOME/Pictures/4chan-stuff/..."
+    echo "Files will be saved in $HOME/Pictures/4chan-stuff/$direc"
+    cd $HOME/Pictures/4chan-stuff/
+    mkdir $direc
+    cd $direc
+    wget $thread_url -O 4chan.html
+    touch links.txt
+    python3 -c "$PYCMD" 
+    touch threadid.txt
+    threadid="$HOME/Pictures/4chan-stuff/$direc/threadid.txt"
+    echo "$thread_url" > "$threadid"
+fi
+
+
+if [[ ! -f $HOME/Pictures/4chan-stuff/$direc/links.txt ]]
+then
+    echo "ERROR: links.txt does not exist."
+else
+    wget -nc -i links.txt
+    rm links.txt
+    rm 4chan.html
+fi
