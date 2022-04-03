@@ -81,7 +81,7 @@ if [[ ! -f $HOME/Downloads/$direc/links.txt ]]
 then
     echo "ERROR: links.txt does not exist."
 else
-    wget -nc -i links.txt
+    wget -nc -i links.txt -q --show-progress
     rm links.txt
     rm 4chan.html
 fi
